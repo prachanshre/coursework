@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Generate or update the data file
-echo "Automated data generation at $(date)" > ~/system1_folder/data.txt
+# Create some data
+echo "Sensitive data at $(date)" > ~/system1_folder/data.txt
 
-# Sign the data file
+# Sign the data
 openssl dgst -sha256 -sign ~/system1_folder/system1_key -out ~/system1_folder/data.sig ~/system1_folder/data.txt
 
-# Encrypt the data file using the symmetric key
+# Encrypt the data
 openssl enc -aes-256-cbc -salt -in ~/system1_folder/data.txt -out ~/system1_folder/data.enc -pass file:~/system1_folder/symmetric.key
 
-# Securely transfer the encrypted data and signature to System 2
-scp ~/system1_folder/data.enc ~/system1_folder/data.sig user@system2_ip:~/system2_folder/
+# Simulate sending to System 2
+cp ~/system1_folder/data.enc ~/system1_folder/data.sig ~/system2_folder/
