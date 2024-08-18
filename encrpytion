@@ -1,13 +1,12 @@
 #!/bin/bash
 
 # Generate file and sign it
-echo "This is a scheduled file created at $(date)" > ~/prachan/scheduled_file.txt
-openssl dgst -sha256 -sign ~/prachan/private_key.pem -out ~/prachan/scheduled_signature.bin ~/prachan/scheduled_file.txt
+echo "This is a scheduled file created at $(date)" > ~/folder1/scheduled_file.txt
+openssl dgst -sha256 -sign ~/folder1/private_key.pem -out ~/folder1/scheduled_signature.bin ~/folder1/scheduled_file.txt
 
 # Encrypt the data
-openssl rsautl -encrypt -inkey ~/prachan/public_key_shrestha.pem -pubin -in ~/prachan/scheduled_file.txt -out ~/prachan/secure_scheduled_file.enc
+openssl rsautl -encrypt -inkey ~/folder1/public_key_folder2.pem -pubin -in ~/folder1/scheduled_file.txt -out ~/folder1/secure_scheduled_file.enc
 
-# Send the encrypted file and signature to shrestha
-scp ~/prachan/secure_scheduled_file.enc shrestha@systemB:/home/shrestha/shrestha/
-scp ~/prachan/scheduled_signature.bin shrestha@systemB:/home/shrestha/shrestha/
-
+# Send the encrypted file and signature to folder2
+scp ~/folder1/secure_scheduled_file.enc folder2@systemB:/home/folder2/folder2/
+scp ~/folder1/scheduled_signature.bin folder2@systemB:/home/folder2/folder2/
