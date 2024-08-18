@@ -1,13 +1,13 @@
 #!/bin/bash
 
-# Create some data
-echo "Sensitive data at $(date)" > ~/system1_folder/data.txt
-
-# Sign the data
-openssl dgst -sha256 -sign ~/system1_folder/system1_key -out ~/system1_folder/data.sig ~/system1_folder/data.txt
+# Generate file and sign it
+echo "This is a scheduled file created at $(date)" > ~/prachan/scheduled_file.txt
+openssl dgst -sha256 -sign ~/prachan/private_key.pem -out ~/prachan/scheduled_signature.bin ~/prachan/scheduled_file.txt
 
 # Encrypt the data
-openssl enc -aes-256-cbc -salt -in ~/system1_folder/data.txt -out ~/system1_folder/data.enc -pass file:~/system1_folder/symmetric.key
+openssl rsautl -encrypt -inkey ~/prachan/public_key_shrestha.pem -pubin -in ~/prachan/scheduled_file.txt -out ~/prachan/secure_scheduled_file.enc
 
-# Simulate sending to System 2
-cp ~/system1_folder/data.enc ~/system1_folder/data.sig ~/system2_folder/
+# Send the encrypted file and signature to shrestha
+scp ~/prachan/secure_scheduled_file.enc shrestha@systemB:/home/shrestha/shrestha/
+scp ~/prachan/scheduled_signature.bin shrestha@systemB:/home/shrestha/shrestha/
+
