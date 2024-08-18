@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Decrypt the received data
-openssl rsautl -decrypt -inkey ~/shrestha/private_key.pem -in ~/shrestha/secure_scheduled_file.enc -out ~/shrestha/decrypted_scheduled_file.txt
+openssl rsautl -decrypt -inkey ~/folder2/private_key.pem -in ~/folder2/secure_scheduled_file.enc -out ~/folder2/decrypted_scheduled_file.txt
 
 # Verify the signature
-openssl dgst -sha256 -verify ~/shrestha/public_key_prachan.pem -signature ~/shrestha/scheduled_signature.bin ~/shrestha/secure_scheduled_file.enc
+openssl dgst -sha256 -verify ~/folder2/public_key_folder1.pem -signature ~/folder2/scheduled_signature.bin ~/folder2/secure_scheduled_file.enc
